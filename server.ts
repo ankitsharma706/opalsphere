@@ -5,7 +5,8 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
-import { createServer as createViteServer } from 'vite';
+// In serverless production, we don't import Vite at the top level
+// to avoid bundling issues since it's a devDependency.
 import { User, Product, Booking, Order } from './src/models/index.js';
 import dotenv from 'dotenv';
 import { initializeApp, getApps, getApp } from 'firebase-admin/app';
@@ -77,6 +78,16 @@ const authenticate = async (req: any, res: any, next: any) => {
     res.status(401).json({ message: 'Invalid token' });
   }
 };
+
+// Health Check
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    environment: process.env.NODE_ENV,
+    mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    firebase: getApps().length > 0 ? 'initialized' : 'not_initialized'
+  });
+});
 
 // API Routes
 
@@ -326,27 +337,40 @@ app.get('/api/order/user', authenticate, async (req: any, res) => {
   }
 });
 
-// Vite middleware for development
+// Server startup for local development
 async function startServer() {
-  if (process.env.NODE_ENV !== 'production') {
-    const vite = await createViteServer({
+  if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+    // Dynamically import Vite only in development to keep prod build slim
+    const { createServer } = await import('vite');
+    const vite = await createServer({
       server: { middlewareMode: true },
       appType: 'spa',
     });
     app.use(vite.middlewares);
   } else {
-    const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
-    });
+    // Production serving of static files
+    const distPath = path.resolve(process.cwd(), 'dist');
+    if (fs.existsSync(distPath)) {
+      app.use(express.static(distPath));
+      app.get('*', (req, res) => {
+        // Only serve index.html for non-api routes
+        if (!req.path.startsWith('/api')) {
+          res.sendFile(path.join(distPath, 'index.html'));
+        }
+      });
+    }
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-  });
+  // Only listen if not running as a Vercel serverless function
+  if (!process.env.VERCEL && !process.env.NETLIFY) {
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server running on http://localhost:${PORT} (${process.env.NODE_ENV || 'development'})`);
+    });
+  }
 }
 
-startServer();
+startServer().catch(err => {
+  console.error('Failed to start server:', err);
+});
 
 export default app;
