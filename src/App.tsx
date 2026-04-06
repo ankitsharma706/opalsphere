@@ -4,22 +4,25 @@ import { Layout } from './components/Layout';
 import { AuthProvider } from './context/AuthContext';
 import { WishlistProvider } from './context/WishlistContext';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import Home from './pages/Home';
-import Events from './pages/Events';
-import Shop from './pages/Shop';
-import Booking from './pages/Booking';
-import Cart from './pages/Cart';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Profile from './pages/Profile';
-import Wishlist from './pages/Wishlist';
 import { Suspense, lazy } from 'react';
 
-// Lazy load other pages for performance
+// Core layout-essential components can stay direct imports if needed, 
+// but most pages should be lazy loaded for a 1MB+ bundle.
+const Home = lazy(() => import('./pages/Home'));
+const Events = lazy(() => import('./pages/Events'));
+const Shop = lazy(() => import('./pages/Shop'));
+const Booking = lazy(() => import('./pages/Booking'));
+const Cart = lazy(() => import('./pages/Cart'));
+const Login = lazy(() => import('./pages/Login'));
+const Signup = lazy(() => import('./pages/Signup'));
+const Profile = lazy(() => import('./pages/Profile'));
+const Wishlist = lazy(() => import('./pages/Wishlist'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const Community = lazy(() => import('./pages/Community'));
 const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
+
+// Lazy load other pages for performance
 
 const queryClient = new QueryClient();
 
