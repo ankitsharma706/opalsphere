@@ -1,0 +1,7 @@
+{
+  "name": "OpalSphere",
+  "description": "Luxury floral decoration platform for high-end events, weddings, and corporate experiences.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

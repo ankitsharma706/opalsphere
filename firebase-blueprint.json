@@ -1,0 +1,82 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User account information and roles",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "client", "decorator"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Event": {
+      "title": "Event",
+      "description": "Floral event decoration project",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "type": { "type": "string" },
+        "date": { "type": "string" },
+        "location": { "type": "string" },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "status": { "type": "string", "enum": ["past", "upcoming"] },
+        "description": { "type": "string" },
+        "budget": { "type": "string" }
+      },
+      "required": ["title", "type", "status"]
+    },
+    "Booking": {
+      "title": "Booking Request",
+      "description": "Consultation and event booking request",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "eventType": { "type": "string" },
+        "date": { "type": "string" },
+        "location": { "type": "string" },
+        "budget": { "type": "string" },
+        "theme": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "completed", "cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "eventType", "status"]
+    },
+    "Product": {
+      "title": "Shop Product",
+      "description": "Floral product for e-commerce",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "category": { "type": "string" },
+        "image": { "type": "string" },
+        "description": { "type": "string" },
+        "stock": { "type": "number" }
+      },
+      "required": ["name", "price", "category"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/events/{eventId}": {
+      "schema": "Event",
+      "description": "Public and past events"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Event booking requests"
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "E-commerce products"
+    }
+  }
+}
