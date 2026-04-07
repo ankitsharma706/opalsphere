@@ -7,7 +7,7 @@ import path from 'path';
 import fs from 'fs';
 // In serverless production, we don't import Vite at the top level
 // to avoid bundling issues since it's a devDependency.
-import { User, Product, Booking, Order } from './src/models/index.js';
+import { User, Product, Booking, Order } from '../src/models/index.js';
 import dotenv from 'dotenv';
 import { initializeApp, getApps, getApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
