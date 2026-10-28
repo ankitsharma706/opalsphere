@@ -10,6 +10,7 @@ import { ArtistSection } from '../components/ArtistSection';
 import { FloatingCTA } from '../components/FloatingCTA';
 import { ParallaxDivider } from '../components/ParallaxDivider';
 import { ServicesGrid } from '../components/ServicesGrid';
+import { SEOHead } from '../components/seo/SEOHead';
 
 export default function Home() {
   const mouseX = useMotionValue(0);
@@ -28,6 +29,11 @@ export default function Home() {
 
   return (
     <div className="overflow-hidden bg-primary selection:bg-accent/30">
+      <SEOHead
+        title="OpalSphere | Luxury Floral Artistry & Bespoke Events"
+        description="Crafting bespoke luxury floral architectures and botanical narratives for weddings, private galas, and corporate events."
+        canonicalUrl="https://maxcnfront.vercel.app/"
+      />
       {/* Cursor Glow Effect */}
       <motion.div 
         style={{ x: springX, y: springY }}

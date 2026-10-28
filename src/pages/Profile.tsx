@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { bookingApi, orderApi } from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { SEOHead } from '../components/seo/SEOHead';
 
 export default function Profile() {
   const { user, logout, loading: authLoading } = useAuth();
@@ -47,6 +48,12 @@ export default function Profile() {
 
   return (
     <div className="pt-32 pb-20 bg-primary min-h-screen">
+      <SEOHead
+        title="Member Profile & Orders | OpalSphere"
+        description="Manage your OpalSphere account, consultations, and floral orders."
+        noindex={true}
+        nofollow={true}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
           {/* Sidebar */}

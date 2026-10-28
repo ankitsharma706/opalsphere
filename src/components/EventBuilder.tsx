@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, Calendar, MapPin, Wallet, Palette } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const EVENT_TYPES = [
   { id: 'wedding', label: 'Wedding', color: '#E8B4B8', img: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800' },
@@ -15,6 +16,7 @@ const THEMES = [
 ];
 
 export function EventBuilder() {
+  const navigate = useNavigate();
   const [eventType, setEventType] = useState(EVENT_TYPES[0]);
   const [theme, setTheme] = useState(THEMES[0]);
   const [budget, setBudget] = useState(5000);
@@ -160,7 +162,10 @@ export function EventBuilder() {
                      ' Tulips, Hydrangeas, and Vibrant Dahlias'} 
                     tailored to your {budget > 20000 ? 'grand-scale' : 'intimate'} vision.
                   </p>
-                  <button className="w-full py-6 bg-secondary text-primary rounded-full font-medium tracking-widest uppercase text-xs hover:bg-accent hover:text-primary transition-all shadow-lg">
+                  <button 
+                    onClick={() => navigate('/booking')}
+                    className="w-full py-6 bg-secondary text-primary rounded-full font-medium tracking-widest uppercase text-xs hover:bg-accent hover:text-secondary transition-all shadow-lg"
+                  >
                     Request This Design
                   </button>
                 </div>

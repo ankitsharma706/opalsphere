@@ -1,0 +1,32 @@
+# OpalSphere Robots Configuration
+# https://maxcnfront.vercel.app
+
+# Google AdSense Crawler
+User-agent: Mediapartners-Google
+Allow: /
+
+# Google Search Crawler
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /cart
+Disallow: /wishlist
+Disallow: /profile
+Disallow: /login
+Disallow: /signup
+Disallow: /*?*
+
+# Default for all other crawlers
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /cart
+Disallow: /wishlist
+Disallow: /profile
+Disallow: /login
+Disallow: /signup
+Disallow: /*?*
+
+# Sitemap Location
+Sitemap: https://maxcnfront.vercel.app/sitemap.xml
+

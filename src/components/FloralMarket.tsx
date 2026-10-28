@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ShoppingCart, Heart, Star } from 'lucide-react';
+import { ShoppingCart, Heart, Star, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const PRODUCTS = [
   { id: 1, name: 'Blush Romance Bouquet', price: 120, category: 'Bouquets', img: 'https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&q=80&w=800' },
@@ -31,10 +32,13 @@ export function FloralMarket() {
             </p>
           </div>
           <div className="flex items-center space-x-6">
-            <div className="flex items-center space-x-2 text-secondary/40 text-xs font-bold uppercase tracking-widest">
-              <Star size={14} className="text-accent" fill="currentColor" />
-              <span>Trending Now</span>
-            </div>
+            <Link 
+              to="/shop" 
+              className="inline-flex items-center space-x-2 text-secondary font-bold text-xs uppercase tracking-widest hover:text-accent transition-colors"
+            >
+              <span>View All Stems</span>
+              <ArrowRight size={14} />
+            </Link>
           </div>
         </div>
       </div>
@@ -88,9 +92,12 @@ export function FloralMarket() {
                   <span className="text-xl font-serif text-secondary">${product.price}</span>
                 </div>
                 
-                <button className="w-full mt-8 py-4 border border-secondary/10 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-secondary hover:text-primary transition-all">
-                  Quick Add
-                </button>
+                <Link 
+                  to="/shop" 
+                  className="block w-full text-center mt-8 py-4 border border-secondary/10 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-secondary hover:text-primary transition-all"
+                >
+                  Explore in Shop
+                </Link>
               </div>
             </div>
           ))}

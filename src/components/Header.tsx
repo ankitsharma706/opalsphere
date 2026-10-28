@@ -31,6 +31,7 @@ export function Header() {
     { name: 'Shop', path: '/shop' },
     { name: 'Gallery', path: '/gallery' },
     { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' },
   ];
 
   return (
