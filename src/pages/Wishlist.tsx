@@ -6,6 +6,7 @@ import { wishlistApi, cartApi } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { PRODUCTS } from '../data/shopData';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { SEOHead } from '../components/seo/SEOHead';
 
 export default function Wishlist() {
   const { user, loading: authLoading } = useAuth();
@@ -52,6 +53,12 @@ export default function Wishlist() {
 
   return (
     <div className="pt-32 pb-24 bg-[#FAF9F6] min-h-screen">
+      <SEOHead
+        title="Your Wishlist | OpalSphere"
+        description="View your saved floral arrangements and luxury botanical decor."
+        noindex={true}
+        nofollow={true}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-16">
           <span className="text-[#E8B4B8] font-bold uppercase tracking-[0.4em] text-[10px] mb-4 block">Your Collection</span>

@@ -32,6 +32,10 @@ export function Hero() {
         <img 
           src="https://images.unsplash.com/photo-1526047932273-341f2a7631f9?auto=format&fit=crop&q=80&w=1200" 
           alt="Luxury Floral Design" 
+          width="1200"
+          height="800"
+          loading="eager"
+          decoding="sync"
           className="w-full h-full object-cover opacity-80"
           referrerPolicy="no-referrer"
         />

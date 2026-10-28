@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Mail, Lock, ArrowRight, Loader2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { SEOHead } from '../components/seo/SEOHead';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -42,6 +43,12 @@ export default function Login() {
 
   return (
     <div className="pt-32 pb-20 bg-primary min-h-screen flex items-center justify-center">
+      <SEOHead
+        title="Sign In | OpalSphere"
+        description="Sign in to your OpalSphere account."
+        noindex={true}
+        nofollow={true}
+      />
       <div className="max-w-md w-full px-4">
         <div className="bg-white p-10 md:p-12 rounded-3xl shadow-sm border border-accent/5">
           <div className="text-center mb-10">

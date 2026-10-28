@@ -9,6 +9,10 @@ import { ClientStories } from '../components/events/ClientStories';
 import { SignatureCollections } from '../components/events/SignatureCollections';
 import { FloatingBookingCTA } from '../components/events/FloatingBookingCTA';
 import { PAST_EVENTS, PastEvent } from '../data/eventsData';
+import { SEOHead } from '../components/seo/SEOHead';
+import { RelatedContent } from '../components/seo/RelatedContent';
+import { AdUnit } from '../components/ads/AdUnit';
+import { buildBreadcrumbSchema } from '../lib/seo/schemaGenerator';
 
 export default function Events() {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -41,6 +45,15 @@ export default function Events() {
 
   return (
     <div className="bg-[#FAF9F6] min-h-screen">
+      <SEOHead
+        title="Event Floral Installations & Galas | OpalSphere"
+        description="Explore our archive of high-profile wedding florals, corporate installations, and bespoke botanical architectures."
+        canonicalUrl="https://maxcnfront.vercel.app/events"
+        schema={buildBreadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Events', url: '/events' },
+        ])}
+      />
       <EventsHero 
         onBookClick={scrollToBooking}
         onGalleryClick={scrollToGallery}
@@ -66,11 +79,17 @@ export default function Events() {
 
       <SignatureCollections />
 
+      {/* Google AdSense Isolated Editorial Placement */}
+      <AdUnit slotId="1000000002" className="max-w-4xl mx-auto px-4" />
+
       <EventDetailModal 
         event={selectedEvent}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />
+
+      {/* Internal PageRank Distribution */}
+      <RelatedContent />
 
       <FloatingBookingCTA />
     </div>

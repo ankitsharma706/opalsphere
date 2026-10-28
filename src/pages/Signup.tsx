@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Mail, Lock, User, ArrowRight, Loader2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { SEOHead } from '../components/seo/SEOHead';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -43,6 +44,12 @@ export default function Signup() {
 
   return (
     <div className="pt-32 pb-20 bg-primary min-h-screen flex items-center justify-center">
+      <SEOHead
+        title="Create Account | OpalSphere"
+        description="Join the OpalSphere floral community."
+        noindex={true}
+        nofollow={true}
+      />
       <div className="max-w-md w-full px-4">
         <div className="bg-white p-10 md:p-12 rounded-3xl shadow-sm border border-accent/5">
           <div className="text-center mb-10">
@@ -101,7 +108,7 @@ export default function Signup() {
             </div>
             
             <p className="text-[10px] text-secondary/40 text-center">
-              By signing up, you agree to our <a href="#" className="underline">Terms of Service</a> and <a href="#" className="underline">Privacy Policy</a>.
+              By signing up, you agree to our <Link to="/terms-of-service" className="underline hover:text-accent">Terms of Service</Link> and <Link to="/privacy-policy" className="underline hover:text-accent">Privacy Policy</Link>.
             </p>
 
             <button 

@@ -6,6 +6,7 @@ import { cartApi, orderApi } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { PRODUCTS } from '../data/shopData';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { SEOHead } from '../components/seo/SEOHead';
 
 export default function Cart() {
   const { user, loading: authLoading } = useAuth();
@@ -72,6 +73,12 @@ export default function Cart() {
 
   return (
     <div className="py-20 bg-primary min-h-screen pt-32">
+      <SEOHead
+        title="Your Shopping Bag | OpalSphere"
+        description="Review and complete your OpalSphere luxury floral order."
+        noindex={true}
+        nofollow={true}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-5xl mb-16 font-serif">Your Shopping Bag</h1>
 

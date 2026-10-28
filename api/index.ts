@@ -56,9 +56,13 @@ app.use(cors({
 // MongoDB Connection
 const MONGODB_URI = process.env.MONGODB_URI;
 if (MONGODB_URI) {
-  mongoose.connect(MONGODB_URI)
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('MongoDB connection error:', err));
+  mongoose.connect(MONGODB_URI, {
+    serverSelectionTimeoutMS: 3000,
+  })
+    .then(() => console.log('✓ Connected to MongoDB'))
+    .catch((err) => {
+      console.warn(`[Notice] MongoDB cluster is unreachable (${err.code || err.message}). Server running with database features paused.`);
+    });
 } else {
   console.warn('MONGODB_URI not found. Database features will not work.');
 }
@@ -87,6 +91,34 @@ app.get('/api/health', (req, res) => {
     mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
     firebase: getApps().length > 0 ? 'initialized' : 'not_initialized'
   });
+});
+
+// AdSense ads.txt Crawler Endpoint
+app.get('/ads.txt', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600');
+  res.status(200).send('google.com, pub-4318712038607459, DIRECT, f08c47fec0942fa0\n');
+});
+
+// robots.txt Crawler Endpoint
+app.get('/robots.txt', (req, res) => {
+  const robotsPath = path.join(process.cwd(), 'public', 'robots.txt');
+  if (fs.existsSync(robotsPath)) {
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    return res.sendFile(robotsPath);
+  }
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.status(200).send(`User-agent: Mediapartners-Google\nAllow: /\n\nUser-agent: Googlebot\nAllow: /\nDisallow: /api/\nDisallow: /cart\nDisallow: /wishlist\nDisallow: /profile\nDisallow: /login\nDisallow: /signup\nDisallow: /*?*\n\nUser-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /cart\nDisallow: /wishlist\nDisallow: /profile\nDisallow: /login\nDisallow: /signup\nDisallow: /*?*\n\nSitemap: https://maxcnfront.vercel.app/sitemap.xml\n`);
+});
+
+// sitemap.xml Crawler Endpoint
+app.get('/sitemap.xml', (req, res) => {
+  const sitemapPath = path.join(process.cwd(), 'public', 'sitemap.xml');
+  if (fs.existsSync(sitemapPath)) {
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    return res.sendFile(sitemapPath);
+  }
+  res.status(404).end();
 });
 
 // API Routes

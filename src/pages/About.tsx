@@ -10,10 +10,25 @@ import { AboutImpact } from '../components/about/AboutImpact';
 import { AboutTestimonials } from '../components/about/AboutTestimonials';
 import { AboutCTA } from '../components/about/AboutCTA';
 import { ScrollProgress } from '../components/about/ScrollProgress';
+import { SEOHead } from '../components/seo/SEOHead';
+import { RelatedContent } from '../components/seo/RelatedContent';
+import { AdUnit } from '../components/ads/AdUnit';
+import { buildBreadcrumbSchema } from '../lib/seo/schemaGenerator';
 
 export default function About() {
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'About Atelier', url: '/about' },
+  ]);
+
   return (
     <div className="bg-primary min-h-screen">
+      <SEOHead
+        title="About Atelier & Philosophy | OpalSphere"
+        description="Discover the artisan craftsmanship, creative philosophy, and floral architecture team behind OpalSphere's luxury events."
+        canonicalUrl="https://maxcnfront.vercel.app/about"
+        schema={breadcrumbSchema}
+      />
       <ScrollProgress />
       
       <AboutHero />
@@ -64,10 +79,17 @@ export default function About() {
       <AboutStory />
       <AboutCraftsmanship />
       <AboutValueProps />
+      
+      {/* Google AdSense Isolated Editorial Placement */}
+      <AdUnit slotId="1000000001" className="max-w-4xl mx-auto px-4" />
+
       <AboutTeam />
       <AboutImpact />
       <AboutTestimonials />
       <AboutCTA />
+
+      {/* Internal PageRank Distribution */}
+      <RelatedContent />
     </div>
   );
 }

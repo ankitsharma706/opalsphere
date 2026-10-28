@@ -9,6 +9,10 @@ import { FreshPicks } from '../components/shop/FreshPicks';
 import { CustomFlowerBuilder } from '../components/shop/CustomFlowerBuilder';
 import { TrustElements, FinalCTA } from '../components/shop/TrustElements';
 import { Product } from '../data/shopData';
+import { SEOHead } from '../components/seo/SEOHead';
+import { RelatedContent } from '../components/seo/RelatedContent';
+import { AdUnit } from '../components/ads/AdUnit';
+import { buildBreadcrumbSchema } from '../lib/seo/schemaGenerator';
 
 interface CartItem extends Product {
   quantity: number;
@@ -67,6 +71,15 @@ export default function Shop() {
 
   return (
     <div className="bg-[#FAF9F6] min-h-screen">
+      <SEOHead
+        title="Luxury Floral Collections & Bouquets | OpalSphere"
+        description="Browse exquisite hand-crafted bouquets, bespoke floral decor kits, and rare seasonal stems curated by master floral artists."
+        canonicalUrl="https://maxcnfront.vercel.app/shop"
+        schema={buildBreadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Shop', url: '/shop' },
+        ])}
+      />
       <ShopHero />
       
       <CollectionSlider />
@@ -76,6 +89,9 @@ export default function Shop() {
         onAddToCart={handleAddToCart}
       />
 
+      {/* Google AdSense Isolated Editorial Placement */}
+      <AdUnit slotId="1000000003" className="max-w-4xl mx-auto px-4" />
+
       <FreshPicks />
 
       <CustomFlowerBuilder />
@@ -83,6 +99,9 @@ export default function Shop() {
       <TrustElements />
 
       <FinalCTA />
+
+      {/* Internal PageRank Distribution */}
+      <RelatedContent />
 
       {/* Modals */}
       <QuickViewModal 

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Calendar, X, ArrowRight, Sparkles } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export function FloatingCTA() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="fixed bottom-10 right-10 z-50 flex flex-col items-end">
@@ -49,7 +51,13 @@ export function FloatingCTA() {
                   <input type="date" className="w-full bg-primary/30 border-none rounded-2xl px-6 py-4 text-sm text-secondary focus:ring-1 focus:ring-accent transition-all" />
                 </div>
 
-                <button className="w-full py-5 bg-secondary text-primary rounded-full font-medium tracking-widest uppercase text-[10px] hover:bg-accent hover:text-primary transition-all shadow-lg flex items-center justify-center group">
+                <button 
+                  onClick={() => {
+                    setIsOpen(false);
+                    navigate('/booking');
+                  }}
+                  className="w-full py-5 bg-secondary text-primary rounded-full font-medium tracking-widest uppercase text-[10px] hover:bg-accent hover:text-primary transition-all shadow-lg flex items-center justify-center group"
+                >
                   <span>Check Availability</span>
                   <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </button>
